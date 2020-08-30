@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+ import React, { useState, useEffect } from 'react';
+import User from './Component/User/User';
+ 
+ const App = () => {
+    const [users,setUsers] = useState([])
+     useEffect(()=> {
+       fetch('https://randomuser.me/api/?results=15')
+       .then(res =>res.json())
+       .then(data =>setUsers(data.results))
+     })
+   return (
+     <div>
+       <h3>Team Builder</h3>
+       {
+         users.map(user=> <User user={user}></User> )
+       }
+     </div>
+   );
+ };
+ 
+ export default App;
